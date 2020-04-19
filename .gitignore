@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+tmp/*
+!tmp/.gitkeep
+DL/*
+!DL/.gitkeep
+
+file_formats/quadko/PicFileFormat.lyx~
+*.PIC
+.vs/Darklands/v15/.suo
+file_formats/quadko/PicViewerMFC/.vs/PicViewer/v15/.suo
+file_formats/quadko/PicViewerMFC/.vs/PicViewer/v16/.suo
+*.db
+*.ipch
+file_formats/quadko/PicViewerMFC/.vs/PicViewerMFC/v15/.suo
+file_formats/quadko/PicViewerMFC/.vs/ProjectSettings.json
+file_formats/quadko/PicViewerMFC/.vs/slnx.sqlite
+file_formats/quadko/PicViewerMFC/.vs/VSWorkspaceState.json
