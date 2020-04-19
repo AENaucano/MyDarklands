@@ -7,6 +7,6 @@ There is even a github https://github.com/vvendigo/Darklands
 
 ## Python
 Unfortunately de coding itself is in Python. Which I admire as a programming language but know nothing. 
-Guess I have to figer that one out
+Guess I have to figure that one out
 
 ... well lets see what we can find out
