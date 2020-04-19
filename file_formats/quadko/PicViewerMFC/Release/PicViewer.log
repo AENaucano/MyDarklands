@@ -1,0 +1,17 @@
+﻿  StdAfx.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  Buf.cpp
+F:\darkland\TEst\DarklandsPicFileData (1)\Examples\PicViewerMFC\PicViewerMFC\Buf.cpp(517,25): warning C4244: '=': conversion from 'ULONGLONG' to 'long', possible loss of data
+  ChildView.cpp
+  Filename.cpp
+  MainFrm.cpp
+  PicReader.cpp
+F:\darkland\TEst\DarklandsPicFileData (1)\Examples\PicViewerMFC\PicViewerMFC\PicReader.cpp(526,6): warning C4101: 'Len': unreferenced local variable
+F:\darkland\TEst\DarklandsPicFileData (1)\Examples\PicViewerMFC\PicViewerMFC\PicReader.cpp(524,6): warning C4101: 'MaxOffset': unreferenced local variable
+F:\darkland\TEst\DarklandsPicFileData (1)\Examples\PicViewerMFC\PicViewerMFC\PicReader.cpp(525,17): warning C4101: 'Tag': unreferenced local variable
+F:\darkland\TEst\DarklandsPicFileData (1)\Examples\PicViewerMFC\PicViewerMFC\PicReader.cpp(587,31): warning C4305: 'argument': truncation from 'int' to 'char'
+F:\darkland\TEst\DarklandsPicFileData (1)\Examples\PicViewerMFC\PicViewerMFC\PicReader.cpp(587,26): warning C4309: 'argument': truncation of constant value
+  PicViewer.cpp
+F:\darkland\TEst\DarklandsPicFileData (1)\Examples\PicViewerMFC\PicViewerMFC\PicViewer.cpp(53,2): warning C4996: 'CWinApp::Enable3dControls': CWinApp::Enable3dControls is no longer needed. You should remove this call.
+  Generating Code...
+  PicViewer.vcxproj -> F:\darkland\TEst\DarklandsPicFileData (1)\Examples\PicViewerMFC\PicViewerMFC\.\Release\PicViewer.exe

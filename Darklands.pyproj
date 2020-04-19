@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{62cdbdc7-fccf-43ae-b55a-551c7a64f98c}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>aux_check_pics.py</StartupFile>
+    <SearchPath>..\Darklands</SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="aux_check_pics.py" />
+    <Compile Include="aux_color_bits.py" />
+    <Compile Include="aux_color_bytes.py" />
+    <Compile Include="aux_count_bytes.py" />
+    <Compile Include="aux_find_bytes.py" />
+    <Compile Include="aux_generate_simple_map.py" />
+    <Compile Include="aux_show_fonts.py" />
+    <Compile Include="extract_cat.py" />
+    <Compile Include="generate_font_png.py" />
+    <Compile Include="generate_map_js.py" />
+    <Compile Include="generate_map_png.py" />
+    <Compile Include="generate_map_web.py" />
+    <Compile Include="reader_cty.py" />
+    <Compile Include="reader_drle.py" />
+    <Compile Include="reader_enemypal.py" />
+    <Compile Include="reader_enm.py" />
+    <Compile Include="reader_exe.py" />
+    <Compile Include="reader_fnt.py" />
+    <Compile Include="reader_imc.py" />
+    <Compile Include="reader_loc.py" />
+    <Compile Include="reader_lst.py" />
+    <Compile Include="reader_map.py" />
+    <Compile Include="reader_msg.py" />
+    <Compile Include="reader_pic.py" />
+    <Compile Include="reader_tacanim.py" />
+    <Compile Include="utils.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="file_formats\bay12forums.com\imc.txt" />
+    <Content Include="file_formats\olemars\readme.txt" />
+    <Content Include="file_formats\quadko\PicFileFormat.txt" />
+    <Content Include="file_formats\up-to-date\catalogs\a00c.cat.html" />
+    <Content Include="file_formats\up-to-date\catalogs\bc.html" />
+    <Content Include="file_formats\up-to-date\catalogs\c00c.cat.html" />
+    <Content Include="file_formats\up-to-date\catalogs\e00c.cat.html" />
+    <Content Include="file_formats\up-to-date\catalogs\editor.cat.html" />
+    <Content Include="file_formats\up-to-date\catalogs\einfo.cat.html" />
+    <Content Include="file_formats\up-to-date\catalogs\f01c.cat.html" />
+    <Content Include="file_formats\up-to-date\catalogs\f60c.cat.html" />
+    <Content Include="file_formats\up-to-date\catalogs\imaps.cat.html" />
+    <Content Include="file_formats\up-to-date\catalogs\lcastle.html" />
+    <Content Include="file_formats\up-to-date\catalogs\m00c.cat.html" />
+    <Content Include="file_formats\up-to-date\catalogs\msgfiles.html" />
+    <Content Include="file_formats\up-to-date\file_format.css" />
+    <Content Include="file_formats\up-to-date\index.css" />
+    <Content Include="file_formats\up-to-date\index.html" />
+    <Content Include="file_formats\up-to-date\xml_formats\character.tmp.html" />
+    <Content Include="file_formats\wallace.net\darklands\catalogs\a00c.cat.html" />
+    <Content Include="file_formats\wallace.net\darklands\catalogs\bc.html" />
+    <Content Include="file_formats\wallace.net\darklands\catalogs\c00c.cat.html" />
+    <Content Include="file_formats\wallace.net\darklands\catalogs\e00c.cat.html" />
+    <Content Include="file_formats\wallace.net\darklands\catalogs\editor.cat.html" />
+    <Content Include="file_formats\wallace.net\darklands\catalogs\einfo.cat.html" />
+    <Content Include="file_formats\wallace.net\darklands\catalogs\f01c.cat.html" />
+    <Content Include="file_formats\wallace.net\darklands\catalogs\f60c.cat.html" />
+    <Content Include="file_formats\wallace.net\darklands\catalogs\imaps.cat.html" />
+    <Content Include="file_formats\wallace.net\darklands\catalogs\lcastle.html" />
+    <Content Include="file_formats\wallace.net\darklands\catalogs\m00c.cat.html" />
+    <Content Include="file_formats\wallace.net\darklands\catalogs\msgfiles.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\cache.tmp.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\catalogs\msgfiles.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\charactr.tmp.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\darkland.alc.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\darkland.cty.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\darkland.dsc.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\darkland.enm.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\darkland.exe.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\darkland.loc.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\darkland.lst.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\darkland.map.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\darkland.snt.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\dksaveXX.sav.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\enumerations.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\file_format.css" />
+    <Content Include="file_formats\wallace.net\darklands\formats\locs.tmp.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\structures.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\X.cat.html" />
+    <Content Include="file_formats\wallace.net\darklands\formats\X.msg.html" />
+    <Content Include="file_formats\wallace.net\darklands\index.css" />
+    <Content Include="file_formats\wallace.net\darklands\index.html" />
+    <Content Include="file_formats\wallace.net\darklands\xml_formats\character.tmp.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="file_formats\" />
+    <Folder Include="file_formats\bay12forums.com" />
+    <Folder Include="file_formats\olemars" />
+    <Folder Include="file_formats\quadko" />
+    <Folder Include="file_formats\up-to-date" />
+    <Folder Include="file_formats\up-to-date\catalogs" />
+    <Folder Include="file_formats\up-to-date\xml_formats" />
+    <Folder Include="file_formats\wallace.net\" />
+    <Folder Include="file_formats\wallace.net\darklands" />
+    <Folder Include="file_formats\wallace.net\darklands\catalogs" />
+    <Folder Include="file_formats\wallace.net\darklands\formats" />
+    <Folder Include="file_formats\wallace.net\darklands\formats\catalogs" />
+    <Folder Include="file_formats\wallace.net\darklands\xml_formats" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>

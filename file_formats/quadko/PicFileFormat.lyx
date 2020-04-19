@@ -1,0 +1,1300 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\bullet 0 0 33 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+=========================================================================
+\end_layout
+
+\begin_layout Title
+Darklands .Pic Image File Format
+\end_layout
+
+\begin_layout Title
+=========================================================================
+\end_layout
+
+\begin_layout Author
+Document by Joel "Quadko" McIntyre 
+\end_layout
+
+\begin_layout Address
+www.eliel.com www.joelmcintyre.com
+\end_layout
+
+\begin_layout Address
+Darklands by and copyright MicroProse
+\end_layout
+
+\begin_layout Address
+www.microprose.com
+\end_layout
+
+\begin_layout Standard
+=========================================================================
+\end_layout
+
+\begin_layout Standard
+All Material copyrighted by one or the other.
+ Joel McIntyre gives his
+\end_layout
+
+\begin_layout Standard
+permission and the priviledge to use and distribute this document freely,
+ 
+\end_layout
+
+\begin_layout Standard
+to the extent of his copyright, and to make use of the information in any
+ 
+\end_layout
+
+\begin_layout Standard
+reasonable way that does not remove his rights or others' priviledges 
+\end_layout
+
+\begin_layout Standard
+regarding this document.
+\end_layout
+
+\begin_layout Standard
+=========================================================================
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Version 1.00 2002-3-18
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+-------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Standard
+- Table of Contents
+\end_layout
+
+\begin_layout Standard
+-------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Standard
+1.
+ Basic File Format
+\end_layout
+
+\begin_layout Standard
+2.
+ Known 'Identifiers'
+\end_layout
+
+\begin_layout Standard
+1) PaletteData - 'M0'
+\end_layout
+
+\begin_layout Standard
+2) ImageData - 'X0'
+\end_layout
+
+\begin_layout Standard
+3) Alt.
+ ImageData - 'X1'
+\end_layout
+
+\begin_layout Standard
+3.
+ Formats of Known 'Identifiers'
+\end_layout
+
+\begin_layout Standard
+2) ImageData 'Identifier'
+\end_layout
+
+\begin_layout Standard
+4.
+ Compressed Pixel Bitstream Format Discussion 
+\end_layout
+
+\begin_layout Standard
+1) Run Length Encoding
+\end_layout
+
+\begin_layout Standard
+2) Data Compression
+\end_layout
+
+\begin_layout Standard
+5.
+ File Diagram
+\end_layout
+
+\begin_layout Standard
+A1.
+ Notes on the C++ Code
+\end_layout
+
+\begin_layout Standard
+1) The CPicReader Simple Interface
+\end_layout
+
+\begin_layout Standard
+2) The CPicReader functions of interest
+\end_layout
+
+\begin_layout Standard
+H1.
+ Document Modification History
+\end_layout
+
+\begin_layout Section
+- Basic File Format
+\end_layout
+
+\begin_layout Standard
+-------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Enumerate
+A '.PIC image file' contains a single 'FileData' block of data =<FileData>
+\end_layout
+
+\begin_layout Enumerate
+A 'FileData' contains 0 or more 'ChunkData' blocks of data sandwitched back
+ to back without any non-ChunkData header or separator data.
+ The chunks may occur in any order in the file.
+ The the Darklands Imageset only has files with 1 or 2 chuncks.
+ The chuncks are always in the same order.
+ =<ChunkData><ChunkData>...<ChunkData>
+\end_layout
+
+\begin_layout Enumerate
+A 'ChunkData' contains, in order, a 2-byte 'Identifier' field, a 2-byte
+ 'Length' field, and a variable length 'InternalData' block of data who's
+ length is described in the 'Length' field.
+ =<Identifier><Length><InternalData>
+\end_layout
+
+\begin_layout Enumerate
+The format of the 'InternalData' block will be entirely dependant on the
+ 'Identifier' field.
+ If the 'Identifier' value is not recognized, the block may be skipped using
+ the 'Length' field, but no knowledge of the internal structure may be gained.
+\end_layout
+
+\begin_layout Section
+- Known 'Identifiers'
+\end_layout
+
+\begin_layout Standard
+-------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Enumerate
+PaletteData: 'Identifier' field= 'M0' (0x4D30)
+\end_layout
+
+\begin_layout Enumerate
+ImageData: 'Identifier' field= 'X0' (0x5830)
+\end_layout
+
+\begin_layout Enumerate
+Alt.
+ ImageData: 'Identifier' field= 'X1' (0x5831) (found in display code, not
+ in data set)
+\end_layout
+
+\begin_layout Standard
+* While the 'ChunkData' data blocks may occur in any order and may include
+ or omit any specific 'Identifiers', the Darklands Imageset only uses 1
+ or 2 
+\end_layout
+
+\begin_layout Standard
+'Identifiers' (PaletteData (M0) & ImageData (X0)), and always in the order
+ PaletteData (M0), ImageData (X0).
+ However, the PaletteData (M0) is optional,
+\end_layout
+
+\begin_layout Standard
+while the ImageData (X0) exists in every file.
+ Therefore, you have 2 situations in a file: A file with a single ImageData
+ (X0) 'Identifier', or
+\end_layout
+
+\begin_layout Standard
+a file starting with a PaletteData (M0) 'Identifier' followed by an ImageData
+ (X0) 'Identifier'.
+ The identifiers may also be considered to be 
+\end_layout
+
+\begin_layout Standard
+a combination of two single byte fields, an identifier and a version number.
+ 
+\end_layout
+
+\begin_layout Standard
+Since the Darklands Imageset only contains the two 'Identifiers' 'M0' and
+ 'X0' the distinction is irrelevant.
+ If you decide to use and extend the format,
+\end_layout
+
+\begin_layout Standard
+you might want to make use of that distinction (new image format 'X2', etc.),
+ or at least keep the pattern (adding a personalized 'Identifier' format
+ 'P0', etc.)
+\end_layout
+
+\begin_layout Section
+- Formats of Known 'Identifiers' 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(or M0)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+-------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Subsection
+PaletteData 'Identifier'
+\end_layout
+
+\begin_layout Standard
+The PaletteData 'Identifier' describes a continuous subrange of the 256
+ color VGA palette.
+ The PaletteData 'Identifier' data block
+\end_layout
+
+\begin_layout Standard
+contains, in order: 
+\end_layout
+
+\begin_layout Itemize
+a 1 byte 'FirstIndex' field
+\end_layout
+
+\begin_layout Itemize
+a 1 byte 'LastIndex' field
+\end_layout
+
+\begin_layout Itemize
+and variable length 'PaletteData' field.
+ 
+\end_layout
+
+\begin_layout Standard
+The 'PaletteData' 
+\end_layout
+
+\begin_layout Standard
+field contains ('LastIndex'-'FirstIndex'+1) 'RGBPalletteValues'.
+\end_layout
+
+\begin_layout Standard
+An 'RGBPalletteValue' contains 3 1 byte fields, in order: 
+\end_layout
+
+\begin_layout Itemize
+'RedValue',
+\end_layout
+
+\begin_layout Itemize
+'GreenValue'
+\end_layout
+
+\begin_layout Itemize
+'BlueValue'
+\end_layout
+
+\begin_layout Standard
+Each of the color values are bytes in the range 0..3F.
+ 
+\end_layout
+
+\begin_layout Standard
+To convert them to proper VGA Palette colors you must multiply them by 4.
+ (Or SHL Color, 2).
+ 
+\end_layout
+
+\begin_layout Standard
+(This potentially leaves the upper 2 bits free for use as flags, for example,
+ for transparency.
+ However, the Darklands Imageset does not ever use the bits.
+ 
+\end_layout
+
+\begin_layout Standard
+The length of the data will be 1+1+(Number of Palette Entries*3)).
+\end_layout
+
+\begin_layout Standard
+In the files in the the Darklands Imageset that contain the PaletteData
+ 'Identifier' there are always 240 palette entries, with FirstIndex=16
+\end_layout
+
+\begin_layout Standard
+(0x10) and LastIndex=256 (0xFF), giving a total length of 722 (0x2D2) bytes.
+ 
+\end_layout
+
+\begin_layout Standard
+This leaves room for the base 16 color traditional palette, though I am
+ simply assuming that Darklands uses those 16 colors unchanged from their
+ tradtional values.
+ (The traditional values are the Dos Text Colors, the EGA 16 color default
+ palette, and even the Windows and HTML standard 16 colors.
+ There is probably an ANSI or other standard listing the colors, though
+ that is speculation on my part and the standard may just be de facto.)
+\end_layout
+
+\begin_layout Verse
+=<FirstIndex><LastIndex>[<RedValue><GreenValue><BlueValue>][<RedValue><GreenValu
+e><BlueValue>]...[<RedValue><GreenValue><BlueValue>]
+\end_layout
+
+\begin_layout Subsection
+ImageData 'Identifier'
+\end_layout
+
+\begin_layout Standard
+The ImageData 'Identifier' contains a compressed image.
+ It consists of the following fields, in order: 
+\end_layout
+
+\begin_layout Itemize
+a 2 byte ImageWidth field
+\end_layout
+
+\begin_layout Itemize
+a 2 byte ImageHeight field
+\end_layout
+
+\begin_layout Itemize
+a 1 byte FormatIdentifyer
+\end_layout
+
+\begin_layout Itemize
+a variable length CompressedBitstream.
+\end_layout
+
+\begin_layout Standard
+The CompressedBitstream and decompression is discussed below.
+ (I still do not fully understand the format of the CompressedBitstream,
+ but I have C++ 
+\end_layout
+
+\begin_layout Standard
+code that correctly decompresses it.)
+\end_layout
+
+\begin_layout Standard
+=<ImageWidth><ImageHeight><FormatIdentifyer><CompressedBitstream>
+\end_layout
+
+\begin_layout Subsection
+Alt.
+ ImageData 'Identifier'
+\end_layout
+
+\begin_layout Standard
+The Alt.
+ ImageData 'Identifier' is very similar to the ImageData 'Identifier', both
+ are loaded by the same code with only a minor
+\end_layout
+
+\begin_layout Standard
+control path difference.
+ The exact nature of the difference is not clear without any examples in
+ the the Darklands Imageset, but
+\end_layout
+
+\begin_layout Standard
+wherever the ImageData 'Identifier' writes a single byte (pixel) to the
+ image, the Alt.
+ ImageData 'Identifier' writes two bytes.
+\end_layout
+
+\begin_layout Standard
+Whether this is two one-byte pixels or one two-byte pixel is not clear,
+ though the VGA display strongly suggests the first.
+ (Was
+\end_layout
+
+\begin_layout Standard
+Darklands released on other platforms that might have 2 byte pixel display
+ formats? I do not know.) 
+\end_layout
+
+\begin_layout Section
+- Compressed Pixel Bitstream Format Discussion 
+\end_layout
+
+\begin_layout Standard
+-------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Standard
+The CompressedBitstream found in the ImageData 'Identifier' is a VGA 1-byte
+ per pixel image that has been Run Length Encoded (RLE) and then compressed.
+ 
+\end_layout
+
+\begin_layout Standard
+The RLE process is straightforward to encode and decode, but the compression
+ algorithm is outside of my experience, so the documentation is sparser
+ than
+\end_layout
+
+\begin_layout Standard
+prefered.
+ Refer to the source code for an example of a decompression algorithm.
+\end_layout
+
+\begin_layout Standard
+(Luckily I had code that would decompress it, so understanding is not as
+ important!)
+\end_layout
+
+\begin_layout Subsection
+Run Length Encoding
+\end_layout
+
+\begin_layout Standard
+The Run Length Encoding is pretty straightforward.
+ The 1 byte VGA pixels are placed in a linear buffer from top-left to bottom-rig
+ht.
+ 
+\end_layout
+
+\begin_layout Standard
+That data is scanned and any pixels that are repeated are (can be) replaced
+ with a 3 byte RLE tag in the format: PixelData, RLE Flag(0x90), RepeatCount-1.
+\end_layout
+
+\begin_layout Standard
+To decode the RLE, there are two easy methods.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+The first method is to 
+\end_layout
+
+\begin_layout Quote
+read a pixel, 
+\end_layout
+
+\begin_layout Quote
+check next byte for RLE(0x90) flag, 
+\end_layout
+
+\begin_layout Quote
+if not RLE, continue, 
+\end_layout
+
+\begin_layout Quote
+if RLE read RepeatCount and fill in that many pixels.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+The second way is to 
+\end_layout
+
+\begin_layout Quote
+read and remember a pixel.
+ 
+\end_layout
+
+\begin_layout Quote
+If the pixel is the RLE(0x90) flag,
+\end_layout
+
+\begin_layout Quote
+keep storing the previously remembered pixel until RepeatCount is zero.
+ 
+\end_layout
+
+\begin_layout Standard
+There is the special case where the VGA pixel has a value of 0x90.
+ 
+\end_layout
+
+\begin_layout Standard
+To deal with this, it is always encoded with a RepeatCount of 0, which is
+ otherwise
+\end_layout
+
+\begin_layout Standard
+invalid (Repeat last pixel 0 times?).
+ 
+\end_layout
+
+\begin_layout Standard
+Therefore, 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+the pixels (hex) 49,50,51 would simply be stored 49 50 51.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+The pixels (hex) 89,90,91 would be stored 89 90 00 91.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+And the pixels 49,50,50,50,50,50,51 would be stored 49 50 90 05 51.
+ 
+\end_layout
+
+\begin_layout Standard
+Obviously you can only encode runs of up to 255 identical pixels with a
+ single RLE(0x90) encoding tag.
+\end_layout
+
+\begin_layout Standard
+Another note, I am uncertain, but I think that no RLE encoding crosses the
+ end-of-line.
+ However, I think the algorithm in the code will properly 
+\end_layout
+
+\begin_layout Standard
+handle it if it does, and it handles all of the Darklands Imageset.
+\end_layout
+
+\begin_layout Subsection
+Data Compression
+\end_layout
+
+\begin_layout Standard
+The Data Compression algorithm is outside of my experience.
+ The code works, and I have made my best guess about what everything is
+ doing, but I do
+\end_layout
+
+\begin_layout Standard
+not have the compression background to be able to identify exactly what
+ is going on or to recognize some common compression format like: Gif /
+ LZW,
+\end_layout
+
+\begin_layout Standard
+Huffman, etc.
+ Having listed those names, I have exhausted the depths of my specific knowledge
+ of internal compression methods.
+\end_layout
+
+\begin_layout Standard
+However I can tell a little what the code is actually doing.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Given the compressed bitstream as input, 
+\end_layout
+
+\begin_layout Standard
+the code removes the first few bits from the bitstream.
+ It then looks them up in an odd Decoding Table/List structure 
+\end_layout
+
+\begin_layout Standard
+that looks like a table crossed internally with linked list.
+ This lookup provides a variable length list of bytes that are pushed on
+ a stack.
+ The 
+\end_layout
+
+\begin_layout Standard
+stack is then popped one byte at a time to produce the Run Length Encoding
+ stream of bytes.
+\end_layout
+
+\begin_layout Standard
+The code is currently setup to call the Decompression function (GetNextPixel),re
+questing the next byte.
+\end_layout
+
+\begin_layout Standard
+(This is not how I would prefer to write it, but it works so no major complaints.
+) 
+\end_layout
+
+\begin_layout Standard
+If there is already decompressed data on the stack, the first byte of that
+ stack data is returned.
+ 
+\end_layout
+
+\begin_layout Standard
+Otherwise, more data is decompressed onto the stack.
+ 
+\end_layout
+
+\begin_layout Standard
+To decompress that data, the next 16 bits of not-yet-decompressed data are
+ fetched from the compressed data buffer.
+ 
+\end_layout
+
+\begin_layout Standard
+These bits are used/scanned to determine how many bits are actually used
+ in this step.
+ (1-16 bits could be used theoretically, I have 
+\end_layout
+
+\begin_layout Standard
+actually seen only a range of 2-12.) 
+\end_layout
+
+\begin_layout Standard
+The active bits are used as an Index into the Decoding Table (table/linked
+ list odd structure), and 
+\end_layout
+
+\begin_layout Standard
+starting from that index the linked list part of the table is followed until
+ it ends, with each index of the table/list providing a byte (pixel) 
+\end_layout
+
+\begin_layout Standard
+for the stack/output RLE stream.
+ Once that data has been obtained, the table/list structure is modified
+ slightly, and it is ready for the next
+\end_layout
+
+\begin_layout Standard
+decompression call once the stack is emptied.
+\end_layout
+
+\begin_layout Standard
+Every so often (when some counter reaches the max size of the table/list)
+ the Decoding Table/List
+\end_layout
+
+\begin_layout Standard
+and all related indexes/data are reset to their initial conditions, and
+ decoding continues.
+\end_layout
+
+\begin_layout Subsubsection
+The Decoding Table/List 
+\end_layout
+
+\begin_layout Standard
+is an array of length 0x800.
+ 
+\end_layout
+
+\begin_layout Standard
+Each item in the array has a pixel data field and a linked list style 'next
+ index' field.
+\end_layout
+
+\begin_layout Standard
+Initially all 'Next' fields are set to 0xffff (-1, end of list, etc.)
+\end_layout
+
+\begin_layout Standard
+The pixel fields are set to (Array Index % 256), basically counting from
+ 0 to 255 8 times over and over up the table.
+ 
+\end_layout
+
+\begin_layout Standard
+Some sort of 'max bits' are tracked, starting at '9 bits' (0x1ff) and occasional
+ly being increased as the data requires.
+\end_layout
+
+\begin_layout Standard
+A base index of some sort is kept, intially equaling 0x100 and being increased
+ every time more data is removed from the
+\end_layout
+
+\begin_layout Standard
+incoming compressed bitstream, until it gets too large, when the entire
+ table is reset.
+\end_layout
+
+\begin_layout Standard
+Lists and pixel values are built, previous pixels and indexes are tracked
+ and use to decompress current pixels, and a few other
+\end_layout
+
+\begin_layout Standard
+things seem to be going on.
+ 
+\end_layout
+
+\begin_layout Standard
+All in all, it is about 50 lines of commented C code, greatly demystified
+ from assembly, and I cannot seem to get the big picture of it.
+ (That is 
+\end_layout
+
+\begin_layout Standard
+unusual, and therefore very irritating!) If you have a better understanding,
+ email me (web page above) and we can get your information into this file
+\end_layout
+
+\begin_layout Standard
+with appropriate kudos to you.
+\end_layout
+
+\begin_layout Standard
+-------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Section
+- File Diagram
+\end_layout
+
+\begin_layout Standard
+-------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Standard
+Here is a diagramic breakdown of the common files in the Darkands Imageset:
+\end_layout
+
+\begin_layout Standard
+1) -----------------------------------------------------------------
+\end_layout
+
+\begin_layout Standard
+<FileData>
+\end_layout
+
+\begin_layout Standard
+2) -----------------------------------------------------------------
+\end_layout
+
+\begin_layout Standard
+<FileData=
+\end_layout
+
+\begin_layout Standard
+<ChunkData>
+\end_layout
+
+\begin_layout Standard
+<ChunkData>
+\end_layout
+
+\begin_layout Standard
+>
+\end_layout
+
+\begin_layout Standard
+3) -----------------------------------------------------------------
+\end_layout
+
+\begin_layout Standard
+<FileData=
+\end_layout
+
+\begin_layout Standard
+<ChunkData=
+\end_layout
+
+\begin_layout Standard
+<Identifier><Length><InternalData>
+\end_layout
+
+\begin_layout Standard
+>
+\end_layout
+
+\begin_layout Standard
+<ChunkData=
+\end_layout
+
+\begin_layout Standard
+<Identifier><Length><InternalData>
+\end_layout
+
+\begin_layout Standard
+>
+\end_layout
+
+\begin_layout Standard
+>
+\end_layout
+
+\begin_layout Standard
+4) -----------------------------------------------------------------
+\end_layout
+
+\begin_layout Standard
+<FileData=
+\end_layout
+
+\begin_layout Standard
+<ChunkData=
+\end_layout
+
+\begin_layout Standard
+<Identifier="M0">
+\end_layout
+
+\begin_layout Standard
+<Length="722">
+\end_layout
+
+\begin_layout Standard
+<InternalData=
+\end_layout
+
+\begin_layout Standard
+<FirstIndex>
+\end_layout
+
+\begin_layout Standard
+<LastIndex>
+\end_layout
+
+\begin_layout Standard
+[<RedValue><GreenValue><BlueValue>]>...[<RedValue><GreenValue><BlueValue>]>
+\end_layout
+
+\begin_layout Standard
+>
+\end_layout
+
+\begin_layout Standard
+>
+\end_layout
+
+\begin_layout Standard
+<ChunkData=
+\end_layout
+
+\begin_layout Standard
+<Identifier="X0">
+\end_layout
+
+\begin_layout Standard
+<Length=Variable>
+\end_layout
+
+\begin_layout Standard
+<InternalData=
+\end_layout
+
+\begin_layout Standard
+<ImageWidth>
+\end_layout
+
+\begin_layout Standard
+<ImageHeight>
+\end_layout
+
+\begin_layout Standard
+<FormatIdentifyer>
+\end_layout
+
+\begin_layout Standard
+<CompressedBitstream>
+\end_layout
+
+\begin_layout Standard
+>
+\end_layout
+
+\begin_layout Standard
+>
+\end_layout
+
+\begin_layout Standard
+>
+\end_layout
+
+\begin_layout Standard
+4) -----------------------------------------------------------------
+\end_layout
+
+\begin_layout Standard
+<FileData=
+\end_layout
+
+\begin_layout Standard
+<ChunkData=
+\end_layout
+
+\begin_layout Standard
+<Identifier="M0">
+\end_layout
+
+\begin_layout Standard
+<Length="722">
+\end_layout
+
+\begin_layout Standard
+<InternalData=
+\end_layout
+
+\begin_layout Standard
+<FirstIndex=0x10>
+\end_layout
+
+\begin_layout Standard
+<LastIndex=0xFF>
+\end_layout
+
+\begin_layout Standard
+[
+\end_layout
+
+\begin_layout Standard
+<RedValue=Variable>
+\end_layout
+
+\begin_layout Standard
+<GreenValue=Variable>
+\end_layout
+
+\begin_layout Standard
+<BlueValue=Variable>
+\end_layout
+
+\begin_layout Standard
+]
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\begin_layout Standard
+[
+\end_layout
+
+\begin_layout Standard
+<RedValue=Variable>
+\end_layout
+
+\begin_layout Standard
+<GreenValue=Variable>
+\end_layout
+
+\begin_layout Standard
+<BlueValue=Variable>
+\end_layout
+
+\begin_layout Standard
+]
+\end_layout
+
+\begin_layout Standard
+>
+\end_layout
+
+\begin_layout Standard
+>
+\end_layout
+
+\begin_layout Standard
+<ChunkData=
+\end_layout
+
+\begin_layout Standard
+<Identifier="X0">
+\end_layout
+
+\begin_layout Standard
+<Length=Variable>
+\end_layout
+
+\begin_layout Standard
+<InternalData=
+\end_layout
+
+\begin_layout Standard
+<ImageWidth=Variable>
+\end_layout
+
+\begin_layout Standard
+<ImageHeight=Variable>
+\end_layout
+
+\begin_layout Standard
+<FormatIdentifyer="0b">
+\end_layout
+
+\begin_layout Standard
+<CompressedBitstream=Variable>
+\end_layout
+
+\begin_layout Standard
+>
+\end_layout
+
+\begin_layout Standard
+>
+\end_layout
+
+\begin_layout Standard
+>
+\end_layout
+
+\begin_layout Standard
+-------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Section
+- A1.
+ Notes on the C++ Code
+\end_layout
+
+\begin_layout Standard
+-------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Standard
+I created a class CPicReader (& CPicReaderC) that will read Darklands .pic
+ files and allow easy access by several different methods, including immediate
+ access 
+\end_layout
+
+\begin_layout Standard
+to a Windows bitmap.
+ This code is written in Microsoft Visual C++ 6.5 using MFC.
+\end_layout
+
+\begin_layout Standard
+I also have included the decoding functions in straight C++ without any
+ MFC dependencies.
+ Hopefully that will be useful and easily compatible/portable 
+\end_layout
+
+\begin_layout Standard
+to other compilers and platforms.
+ 
+\end_layout
+
+\begin_layout Standard
+Again, there are two versions, the original that uses MFC, and a leaner,
+ cleaner version without MFC References.
+ The MFC Version allows easier access to 
+\end_layout
+
+\begin_layout Standard
+image display by creating a CBitmap for you on demand, but uses a few support
+ classes and MFC classes.
+ The NonMFC version does not provide any 
+\end_layout
+
+\begin_layout Standard
+such help, but requires no supporting classes/files.
+ Example display projects are provided with both the MFC/Non-MFC versions.
+\end_layout
+
+\begin_layout Paragraph
+1) The CPicReader Simple Interface
+\end_layout
+
+\begin_layout Standard
+Check the class itself and minimal documentation for more advanced features:
+ palette, direct pixel data.
+\end_layout
+
+\begin_layout Standard
+Here are the simple-immediate use features to get you started quickly.
+\end_layout
+
+\begin_layout Subparagraph
+// basic Class type and file loading
+\end_layout
+
+\begin_layout Standard
+CPicReader PicReader; // MFC Version
+\end_layout
+
+\begin_layout Standard
+CPicReaderC PicReader; // Non MFC Version
+\end_layout
+
+\begin_layout Standard
+bool Load(const char *Filename);
+\end_layout
+
+\begin_layout Subparagraph
+// for Windows RGB color/COLORREF level access
+\end_layout
+
+\begin_layout Standard
+int GetWidth();
+\end_layout
+
+\begin_layout Standard
+int GetHeight();
+\end_layout
+
+\begin_layout Standard
+COLORREF GetPixel(int X, int Y);
+\end_layout
+
+\begin_layout Subparagraph
+// Or for a Windows/MFC CBitmap
+\end_layout
+
+\begin_layout Standard
+bool CreateBitmap();
+\end_layout
+
+\begin_layout Standard
+CBitmap *GetBitmap();
+\end_layout
+
+\begin_layout Paragraph
+2) The CPicReader functions of particular interest (decoding functions)
+\end_layout
+
+\begin_layout Subparagraph
+// runs file decoding/RLE.
+\end_layout
+
+\begin_layout Standard
+void DecodeImage(void *FileData,int Len); 
+\end_layout
+
+\begin_layout Subparagraph
+// decompresses compressed bitstream, returning 'next' pixel (RLE) byte.
+\end_layout
+
+\begin_layout Standard
+unsigned char GetNextPixel( /* lots of them */); 
+\end_layout
+
+\begin_layout Subparagraph
+// Initialize Fresh Decode Table
+\end_layout
+
+\begin_layout Standard
+void SetupDecodeTable( /* a few of them */ );
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Section
+- H1.
+ Document Modification History
+\end_layout
+
+\begin_layout Standard
+-------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Standard
+Version 1.00 2002-3-18 - Initial Release
+\end_layout
+
+\begin_layout Standard
+-------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Standard
+copyright 2002 Joel McIntyre
+\end_layout
+
+\end_body
+\end_document

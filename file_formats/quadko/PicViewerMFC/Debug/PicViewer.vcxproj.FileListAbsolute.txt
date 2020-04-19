@@ -1,0 +1,2 @@
+F:\darkland\TEst\DarklandsPicFileData (1)\Examples\PicViewerMFC\PicViewerMFC\Debug\PicViewer.exe
+F:\darkland\TEst\DarklandsPicFileData (1)\Examples\PicViewerMFC\PicViewerMFC\Debug\PicViewer.pdb
