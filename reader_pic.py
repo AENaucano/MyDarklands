@@ -14,10 +14,10 @@ def readPal(data):
     pos = 2
     pLen = pEnd - pStart
     out = [None]*256
-    for i in xrange(0, pLen):
+    for i in range(pLen):
         out[pStart+i] = (data[pos]*4, data[pos+1]*4, data[pos+2]*4)
         pos += 3
-    #print 'Pal', pStart, pEnd, pLen
+    # print ('Pal', pStart, pEnd, pLen)
     return out
 
 class DecState:
@@ -41,7 +41,8 @@ class DecState:
         self.DecodeTableIndex=0x100; # why 100, top bit in BitMask? - Coincedence, plan?
         self.DecodeTable = [None]*0x800
         # Initial DecodeTable setting: Next=end of list, PixelData count from 0..0xff over and over
-        for cnt in xrange(0, 0x800):
+        # xrange=(0, 0x800) -> lol
+        for cnt in range(0x800):
             self.DecodeTable[cnt] = (0xffff, cnt&0xff) # next, pixelData
 #endclass
 
@@ -143,10 +144,10 @@ def readPic(data):
 
     picData = []
 
-    for CurY in xrange(0, Height):
+    for CurY in range(Height):
         picData.append([0]*Width)
         # Parse Data into line, a pixel at a time
-        for CurX in xrange(0, Width):
+        for CurX in range(Width):
             if (RepeatCount>0):# "RLE" Repeat count
                 RepeatCount -= 1
             else:
@@ -171,7 +172,7 @@ def readPic(data):
 
             # Just put the pixel in the bitmap for now
             #!!! ImageData[CurY*Width+CurX]=(unsigned char)CurPixelValue;
-            #print CurPixelValue
+            # print (CurPixelValue)
             picData[CurY][CurX] = CurPixelValue
 
     return picData
@@ -181,46 +182,36 @@ def readFile(fname, palOnly = False):
     pal = None
     pic = None
 
-    picFile = open(fname, "rb")
-    for c in picFile.read():
-        data = ord(c)
-        print(len(data)) 
-
-
-    return
-
-"""
     #    data = [ord(c) for c in open(fname).read()]
-
+    data = open(fname, "rb").read()
 
     dataLen = len(data)
-    print (fname, dataLen)
+    print ("Readfile name& length: ", fname, dataLen)
     pos = 0
     while pos < dataLen:
         tag = bread(data[pos:pos+2])
         pos += 2
         segLen = bread(data[pos:pos+2])
         pos += 2
-        #print hex(tag), segLen
+        print ("Hextag & seglen: ", hex(tag), segLen)
         if tag == 0x304D:
             pal = readPal(data[pos:pos+segLen])
             if palOnly:
                 break
         elif tag == 0x3058 and not palOnly:
             pic = readPic(data[pos:pos+segLen])
-        else: print ('Unknown!')
+        else: print ('Unknown Tag! You found it !')
         pos += segLen
     return pal, pic
-"""
 
-
+# NoneType ???
 def renderImage(pal, pic):
     s = pygame.Surface((len(pic[0]), len(pic)), pygame.SRCALPHA, 32)
     #s = s.convert_alpha()
     for y, ln in enumerate(pic):
         for x, ci in enumerate(ln):
             c = pal[ci]
-            if ci > 0 and c != None:
+            if c > 0 and c != None:
                 s.fill(c, (x,y, 1, 1))
     return s
 
@@ -249,17 +240,21 @@ if __name__ == '__main__':
         pname = sys.argv[3]
 
     # dname = ddir + '/' + os.path.basename(fname) + '.png'
-    # pal, pic = readFile(fname)
+    dname = os.path.basename(fname) + '.png'
+    pal, pic = readFile(fname)
     pic = readFile(fname)
-"""
-    print (fname)
+
+    print ("Filename: ", fname)
     if pic:
         print ('pic', len(pic[0]), len(pic))
-    #print pic[0][0]
-    if pal:
-        print ('pal', len(pal)) #pal
-    print
 
+    print (pic)
+    # 
+    # print (pic[0][0])
+    # if pal:
+    #    print ('pal', len(pal)) #pal
+    # print
+"""
     if pname:
         pal, _ = readFile(pname, palOnly=True)
 
@@ -271,5 +266,4 @@ if __name__ == '__main__':
         pygame.image.save(img, dname)
     else:
         print ('!!!')
-"""
-
+    """
