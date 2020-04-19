@@ -211,7 +211,7 @@ def renderImage(pal, pic):
     for y, ln in enumerate(pic):
         for x, ci in enumerate(ln):
             c = pal[ci]
-            if c > 0 and c != None:
+            if c != 0 and c != None:
                 s.fill(c, (x,y, 1, 1))
     return s
 
@@ -242,19 +242,18 @@ if __name__ == '__main__':
     # dname = ddir + '/' + os.path.basename(fname) + '.png'
     dname = os.path.basename(fname) + '.png'
     pal, pic = readFile(fname)
-    pic = readFile(fname)
+    # pic = readFile(fname)
 
     print ("Filename: ", fname)
     if pic:
-        print ('pic', len(pic[0]), len(pic))
+        print ('Length pic: ',len(pic[0]), " Height would be:" ,len(pic))
 
-    print (pic)
     # 
     # print (pic[0][0])
     # if pal:
     #    print ('pal', len(pal)) #pal
     # print
-"""
+
     if pname:
         pal, _ = readFile(pname, palOnly=True)
 
@@ -266,4 +265,3 @@ if __name__ == '__main__':
         pygame.image.save(img, dname)
     else:
         print ('!!!')
-    """
