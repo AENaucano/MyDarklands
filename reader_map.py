@@ -15,12 +15,13 @@ def readData(dlPath):
 
     #print max_x_size, max_y_size
     row_offsets = [0]*max_y_size
-    for i in xrange(0, max_y_size):
+
+    for i in range(max_y_size):
         # typo in Wallace's doc - it's double word, not word
         row_offsets[i] = bread(data[pos:pos+4])
         pos += 4
     m = []
-    for i in xrange(0, max_y_size):
+    for i in range(max_y_size):
         line = [None]*max_x_size
         pos = row_offsets[i]
         #print i, pos, row_offsets[i+1] if i+1 < len(row_offsets) else dataLen
@@ -32,7 +33,7 @@ def readData(dlPath):
             pal = (b >> 4) & 0x1
             row = b & 0xf
             #print ' ', pos+x, x, cnt, pal, row
-            for c in xrange(0, cnt):
+            for c in range(cnt):
                 line[x] = (pal, row)
                 x += 1
         m.append(line)
@@ -41,9 +42,9 @@ def readData(dlPath):
                 (16,),(17,),(18,),(19,),(20,),(21,),(22,),(23,),(24,25,27,29),(25,1,2,3),(26,25),(27,2,3),(),(29,),(),(),)
 
     # get cols
-    for y in xrange(0, max_y_size):
+    for y in range(max_y_size):
         xc = 0 if y%2 else -1
-        for x in xrange(0, max_x_size):
+        for x in range(max_x_size):
             pal, row = m[y][x]
             # differs from Wallace - bits set just by adjanced _same_row_ tiles
             tv = pal*16+row
@@ -71,11 +72,13 @@ def readData(dlPath):
 if __name__ == '__main__':
     import sys
 
+
+    print ("Welcome to Darklands ... Welcome")
     dlPath = sys.argv[1] if len(sys.argv) > 1 else 'DL'
 
     m = readData(dlPath)
 
-    print len(m[0]), len(m)
+    print (len(m[0]), len(m))
 
     tiles = [' WWWwsppffttTTTT', 'HHhhMMAA/~~%Cc++']
     tiles = [' ....sppffttTTTT', 'HHhhMMAA/~~%Cc++']
@@ -86,5 +89,5 @@ if __name__ == '__main__':
         print
     '''
     for ln in m:
-        print ''.join([tiles[pal][row] for pal, row, col in ln])
+        print (''.join([tiles[pal][row] for pal, row, col in ln]))
             

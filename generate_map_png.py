@@ -16,7 +16,7 @@ fontName = 'gentium'
 # tile "palletes"
 tilePalFnames = (dlPath+'/pics/mapicons.pic',dlPath+'/pics/mapicon2.pic')
 
-print 'Reading map data...'
+print ('Reading map data...')
 m = reader_map.readData(dlPath)
 
 width, height = len(m[0]), len(m) # in tiles
@@ -26,10 +26,10 @@ dh = 4 # tile y-dist for bliting
 pals = []
 
 for fn in tilePalFnames:
-	print 'Reading tile pallete:', fn
+	print ('Reading tile pallete:', fn)
 	pals.append(reader_pic.getImage(fn))
 
-print "Reading locs..."
+print ("Reading locs...")
 locs = reader_loc.readData(dlPath)
 locsByCoords = {}
 for i,l in enumerate(locs):
@@ -39,7 +39,7 @@ for i,l in enumerate(locs):
 	else:
 		locsByCoords[c] = [i]
 
-print "Rendering tile map..."
+print ("Rendering tile map...")
 pygame.init()
 srf = pygame.Surface(((width+1)*tw, (height+2)*dh))
 srf.fill((4, 154, 0))
@@ -75,10 +75,10 @@ fontSmallest = pygame.font.SysFont(fontName, 9)
 
 fonts = {0:fontBig, 8:fontSmaller, 13:0, 15:0, 16:0, 17:0, 18:0, 19:0, 20:0}
 
-print 'Reading cities...'
+print ('Reading cities...')
 cities = reader_cty.readData(dlPath)
 
-print 'Rendering names...'
+print ('Rendering names...')
 for i, loc in enumerate(locs):
 	lt = loc['icon']
 	name = loc['name'] if lt else cities[i]['name']

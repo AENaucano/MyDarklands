@@ -233,14 +233,14 @@ if __name__ == '__main__':
     import os
 
     fname = sys.argv[1]
-    # ddir = sys.argv[2]
+    ddir = sys.argv[2]
     # opt. file to pallete read from
     pname = None
     if len(sys.argv) == 4:
         pname = sys.argv[3]
 
-    # dname = ddir + '/' + os.path.basename(fname) + '.png'
-    dname = os.path.basename(fname) + '.png'
+    dname = ddir + '/' + os.path.basename(fname) + '.png'
+    # dname = os.path.basename(fname) + '.png'
     pal, pic = readFile(fname)
     # pic = readFile(fname)
 

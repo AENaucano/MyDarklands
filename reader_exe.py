@@ -11,7 +11,7 @@ def readZeroEnded(data, pos, endpos):
 
 def readData(dlPath):
     fname = dlPath + '/darkland.exe'
-    data = open(fname).read()
+    data = open(fname, "rb").read() #it is binary, not text -> no codec charmap
     out = {}
 
 
@@ -201,10 +201,11 @@ if __name__ == '__main__':
     #    print '%4d %s'%(idx, ps(s))
     #    idx += 1
     print
-    print serArr(data['attributes_abbr']) ; print
-    print serArr(data['attributes']) ; print
-    print serArr(data['skills_abbr']) ; print
-    print serArr(data['skills']) ; print
+    print (serArr(data['attributes_abbr'])) ; print
+    print (serArr(data['attributes'])) ; print
+    print (serArr(data['skills_abbr'])) ; print
+    print (serArr(data['skills'])) ; print
+
     '''
     for abb, name in zip(data['attributes_abbr'], data['attributes']):
         print '    '+abb+': "'+name+'",'
@@ -212,14 +213,11 @@ if __name__ == '__main__':
     for abb, name in zip(data['skills_abbr'], data['skills']):
         print '    '+abb+': "'+name+'",'
     '''
-    print ', '.join(['%s:0'%s for s in data['skills_abbr']])
+    print (', '.join(['%s:0'%s for s in data['skills_abbr']]))
 
 
-    print serArr(data['firstnames_male']) ; print
-    print serArr(data['firstnames_female']) ; print
-    print serArr(data['surnames']) ; print
-    print serArr(data['occupations']) ; print
-    print serArr(data['family']) ; print
-
-
-
+    print (serArr(data['firstnames_male'])) ; print
+    print (serArr(data['firstnames_female'])) ; print
+    print (serArr(data['surnames'])) ; print
+    print (serArr(data['occupations'])) ; print
+    print (serArr(data['family'])) ; print
